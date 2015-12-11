@@ -16,4 +16,10 @@
               :wuserver { :main zmq-clj.wuserver
                           :uberjar-name "wuserver.jar" }
               :wuclient { :main zmq-clj.wuclient
-                          :uberjar-name "wuclient.jar" } })
+                          :uberjar-name "wuclient.jar" }
+              :taskvent { :main zmq-clj.taskvent
+                          :uberjar-name "taskvent.jar" }
+              :taskwork { :main zmq-clj.taskwork
+                          :uberjar-name "taskwork.jar" }
+              :tasksink { :main zmq-clj.tasksink
+                          :uberjar-name "tasksink.jar" } })

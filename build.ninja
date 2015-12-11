@@ -3,26 +3,37 @@ rule uberjar
     && cp target/uberjar/$profile.jar bin
   description = [ $profile ]
 
-# Hello World
+# Hello World (REQREP - stateless service)
 build bin/hwserver.jar: uberjar | src/zmq_clj/hwserver.clj
   profile = hwserver
 build bin/hwclient.jar: uberjar | src/zmq_clj/hwclient.clj
   profile = hwclient
 
-# Weather Update
+# Weather Update (PUBSUB - broadcasting)
 build bin/wuserver.jar: uberjar | src/zmq_clj/wuserver.clj
   profile = wuserver
 build bin/wuclient.jar: uberjar | src/zmq_clj/wuclient.clj
   profile = wuclient
 
+# Ventilator Worker Sink (PUSHPULL, PIPELINE
+#   - load balanced one-way dataflow with fair queueing)
+build bin/taskvent.jar: uberjar | src/zmq_clj/taskvent.clj
+  profile = taskvent
+build bin/taskwork.jar: uberjar | src/zmq_clj/taskwork.clj
+  profile = taskwork
+build bin/tasksink.jar: uberjar | src/zmq_clj/tasksink.clj
+  profile = tasksink
+
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar $
-  bin/wuserver.jar bin/wuclient.jar
+  bin/wuserver.jar bin/wuclient.jar $
+  bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar
 
 rule clean
   command = rm -f $
     bin/hwserver.jar bin/hwclient.jar $
-    bin/wuserver.jar bin/wuclient.jar
+    bin/wuserver.jar bin/wuclient.jar $
+    bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar
   description = [ clean ]
 
 build clean: clean
