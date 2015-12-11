@@ -3,17 +3,28 @@ rule uberjar
     && cp target/uberjar/$profile.jar bin
   description = [ $profile ]
 
+# Hello World
 build bin/hwserver.jar: uberjar | src/zmq_clj/hwserver.clj
   profile = hwserver
 build bin/hwclient.jar: uberjar | src/zmq_clj/hwclient.clj
   profile = hwclient
 
-build hw: phony bin/hwserver.jar bin/hwclient.jar
+# Weather Update
+build bin/wuserver.jar: uberjar | src/zmq_clj/wuserver.clj
+  profile = wuserver
+build bin/wuclient.jar: uberjar | src/zmq_clj/wuclient.clj
+  profile = wuclient
+
+build all: phony $
+  bin/hwserver.jar bin/hwclient.jar $
+  bin/wuserver.jar bin/wuclient.jar
 
 rule clean
-  command = rm -f bin/hwserver.jar bin/hwclient.jar
+  command = rm -f $
+    bin/hwserver.jar bin/hwclient.jar $
+    bin/wuserver.jar bin/wuclient.jar
   description = [ clean ]
 
 build clean: clean
 
-default hw
+default all

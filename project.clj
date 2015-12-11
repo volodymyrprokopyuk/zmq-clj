@@ -12,4 +12,8 @@
               :hwserver { :main zmq-clj.hwserver
                           :uberjar-name "hwserver.jar" }
               :hwclient { :main zmq-clj.hwclient
-                          :uberjar-name "hwclient.jar" } })
+                          :uberjar-name "hwclient.jar" }
+              :wuserver { :main zmq-clj.wuserver
+                          :uberjar-name "wuserver.jar" }
+              :wuclient { :main zmq-clj.wuclient
+                          :uberjar-name "wuclient.jar" } })
