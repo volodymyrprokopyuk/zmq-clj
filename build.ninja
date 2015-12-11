@@ -1,0 +1,19 @@
+rule uberjar
+  command = lein with-profile $profile uberjar $
+    && cp target/uberjar/$profile.jar bin
+  description = [ $profile ]
+
+build bin/hwserver.jar: uberjar | src/zmq_clj/hwserver.clj
+  profile = hwserver
+build bin/hwclient.jar: uberjar | src/zmq_clj/hwclient.clj
+  profile = hwclient
+
+build hw: phony bin/hwserver.jar bin/hwclient.jar
+
+rule clean
+  command = rm -f bin/hwserver.jar bin/hwclient.jar
+  description = [ clean ]
+
+build clean: clean
+
+default hw
