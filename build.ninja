@@ -3,20 +3,20 @@ rule uberjar
     && cp target/uberjar/$profile.jar bin
   description = [ $profile ]
 
-# Hello World (REQREP - stateless service)
+# Hello World (REQREP - stateless service, client/server)
 build bin/hwserver.jar: uberjar | src/zmq_clj/hwserver.clj
   profile = hwserver
 build bin/hwclient.jar: uberjar | src/zmq_clj/hwclient.clj
   profile = hwclient
 
-# Weather Update (PUBSUB - broadcasting)
+# Weather Update (PUBSUB - broadcasting, publisher/subscriber)
 build bin/wuserver.jar: uberjar | src/zmq_clj/wuserver.clj
   profile = wuserver
 build bin/wuclient.jar: uberjar | src/zmq_clj/wuclient.clj
   profile = wuclient
 
 # Ventilator Worker Sink (PUSHPULL, PIPELINE
-#   - load balanced one-way dataflow with fair queueing)
+#   - load balanced one-way dataflow with fair queueing, map/reduce)
 build bin/taskvent.jar: uberjar | src/zmq_clj/taskvent.clj
   profile = taskvent
 build bin/taskwork.jar: uberjar | src/zmq_clj/taskwork.clj
