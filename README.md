@@ -4,7 +4,7 @@
 
 ## Installation
 
-### Install ZMQ
+### Install [ZMQ](https://github.com/zeromq/libzmq)
 
 ```bash
 $ tar -xzvf zmq.tar.gz (http://zeromq.org/)
@@ -14,7 +14,7 @@ $ make
 $ sudo make install
 ```
 
-### Install JZMQ
+### Install [JZMQ](https://github.com/zeromq/jzmq)
 
 ```bash
 $ git clone https://github.com/zeromq/jzmq.git
@@ -30,6 +30,13 @@ $ sudo make install
 ```bash
 $ sudo vim /etc/ld.so.conf (include /usr/local/lib)
 $ sudo ldconfig -v | grep zmq
+```
+### Install [CLJZMQ](https://github.com/zeromq/cljzmq)
+
+```clojure
+(defproject zmq-clj "0.1.0-SNAPSHOT"
+  :dependencies [ [ org.zeromq/cljzmq "0.1.4" ] ]
+  :jvm-opts [ "-Djava.library.path=/usr/local/lib" ])
 ```
 
 ### Usage
