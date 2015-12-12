@@ -2,6 +2,8 @@
 
 [ZeroMQ Guide examples in Clojure](https://github.com/imatix/zguide)
 
+[ZeroMQ Book](http://shop.oreilly.com/product/0636920026136.do)
+
 ## Installation
 
 ### Install [ZMQ](https://github.com/zeromq/libzmq)
