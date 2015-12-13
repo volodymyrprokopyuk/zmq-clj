@@ -26,4 +26,10 @@
               :msreader { :main zmq-clj.msreader
                           :uberjar-name "msreader.jar" }
               :mspoller { :main zmq-clj.mspoller
-                          :uberjar-name "mspoller.jar" } })
+                          :uberjar-name "mspoller.jar" }
+              :rrclient { :main zmq-clj.rrclient
+                          :uberjar-name "rrclient.jar" }
+              :rrworker { :main zmq-clj.rrworker
+                          :uberjar-name "rrworker.jar" }
+              :rrbroker { :main zmq-clj.rrbroker
+                          :uberjar-name "rrbroker.jar" } })
