@@ -22,4 +22,8 @@
               :taskwork { :main zmq-clj.taskwork
                           :uberjar-name "taskwork.jar" }
               :tasksink { :main zmq-clj.tasksink
-                          :uberjar-name "tasksink.jar" } })
+                          :uberjar-name "tasksink.jar" }
+              :msreader { :main zmq-clj.msreader
+                          :uberjar-name "msreader.jar" }
+              :mspoller { :main zmq-clj.mspoller
+                          :uberjar-name "mspoller.jar" } })

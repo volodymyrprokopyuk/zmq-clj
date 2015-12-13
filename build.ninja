@@ -24,16 +24,24 @@ build bin/taskwork.jar: uberjar | src/zmq_clj/taskwork.clj
 build bin/tasksink.jar: uberjar | src/zmq_clj/tasksink.clj
   profile = tasksink
 
+# Read from multiple sockets at the same time (POLL)
+build bin/msreader.jar: uberjar | src/zmq_clj/msreader.clj
+  profile = msreader
+build bin/mspoller.jar: uberjar | src/zmq_clj/mspoller.clj
+  profile = mspoller
+
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar $
   bin/wuserver.jar bin/wuclient.jar $
-  bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar
+  bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
+  bin/msreader.jar bin/mspoller.jar
 
 rule clean
   command = rm -f $
     bin/hwserver.jar bin/hwclient.jar $
     bin/wuserver.jar bin/wuclient.jar $
-    bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar
+    bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
+    bin/msreader.jar bin/mspoller.jar
   description = [ clean ]
 
 build clean: clean
