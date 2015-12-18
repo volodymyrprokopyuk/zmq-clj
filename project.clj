@@ -32,4 +32,6 @@
               :rrworker { :main zmq-clj.rrworker
                           :uberjar-name "rrworker.jar" }
               :rrbroker { :main zmq-clj.rrbroker
-                          :uberjar-name "rrbroker.jar" } })
+                          :uberjar-name "rrbroker.jar" }
+              :msgqueue { :main zmq-clj.msgqueue
+                          :uberjar-name "msgqueue.jar" } })

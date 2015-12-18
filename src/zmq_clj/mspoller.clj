@@ -5,11 +5,11 @@
 (defn -main [ ]
   (let [ context (zmq/context 1)
          poller (zmq/poller context 2) ] ; in/out sockets multiplexer
-    (with-open [ subscriber (doto (zmq/socket context :sub)
+    (with-open [ subscriber (doto (zmq/socket context :sub) ; for wuserver.clj
                               (zmq/connect "tcp://127.0.0.1:5556")
                               (zmq/subscribe "28921")
                               (zmq/subscribe "28042"))
-                 consumer (doto (zmq/socket context :pull)
+                 consumer (doto (zmq/socket context :pull) ; for taskvent.clj
                             (zmq/connect "tcp://127.0.0.1:5557")) ]
       (zmq/register poller subscriber :pollin)
       (zmq/register poller consumer :pollin)

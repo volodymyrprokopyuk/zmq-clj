@@ -31,21 +31,23 @@ build bin/msreader.jar: uberjar | src/zmq_clj/msreader.clj
 build bin/mspoller.jar: uberjar | src/zmq_clj/mspoller.clj
   profile = mspoller
 
-# Client Broker Worker (ROUTER, DEALTER - async REQREP
-#   -  fair queueing (ROUTER) sockets multiplexing (POLL) load balanced (DEALER))
+# Client Broker/MessageQueue Worker (ROUTER, DEALTER - async REQREP
+#   - fair queueing (ROUTER) sockets multiplexing (POLL) load balancing (DEALER))
 build bin/rrclient.jar: uberjar | src/zmq_clj/rrclient.clj
   profile = rrclient
 build bin/rrworker.jar: uberjar | src/zmq_clj/rrworker.clj
   profile = rrworker
 build bin/rrbroker.jar: uberjar | src/zmq_clj/rrbroker.clj
   profile = rrbroker
+build bin/msgqueue.jar: uberjar | src/zmq_clj/msgqueue.clj
+  profile = msgqueue
 
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar $
   bin/wuserver.jar bin/wuclient.jar $
   bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
   bin/msreader.jar bin/mspoller.jar $
-  bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar
+  bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar
 
 rule clean
   command = rm -f $
@@ -53,7 +55,7 @@ rule clean
     bin/wuserver.jar bin/wuclient.jar $
     bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
     bin/msreader.jar bin/mspoller.jar $
-    bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar
+    bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar
   description = [ clean ]
 
 build clean: clean

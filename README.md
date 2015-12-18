@@ -51,6 +51,15 @@ $ ./bin/run.sh bin/hwserver.jar
 $ ./bin/run.sh bin/hwclient.jar
 ```
 
+## Examples
+- hwserver hwclient
+- wuserver wuclient
+- taskvent taskwork tasksink
+- wuserver/taskvent msreader
+- wuserver/taskvent mspoller
+- rrclient rrbroker rrworker
+- rrclient msgqueue rrworker
+
 ## License
 
 Copyright © 2015 FIXME
