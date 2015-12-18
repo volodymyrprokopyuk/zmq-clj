@@ -55,10 +55,11 @@ $ ./bin/run.sh bin/hwclient.jar
 - hwserver hwclient
 - wuserver wuclient
 - taskvent taskwork tasksink
-- wuserver/taskvent msreader
-- wuserver/taskvent mspoller
+- wuserver&taskvent msreader
+- wuserver&taskvent mspoller
 - rrclient rrbroker rrworker
 - rrclient msgqueue rrworker
+- wuserver wuproxy wuclient
 
 ## License
 

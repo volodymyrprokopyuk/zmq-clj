@@ -10,13 +10,17 @@ build bin/hwclient.jar: uberjar | src/zmq_clj/hwclient.clj
   profile = hwclient
 
 # Weather Update (PUBSUB - broadcasting, publisher/subscriber)
+# with proxy
 build bin/wuserver.jar: uberjar | src/zmq_clj/wuserver.clj
   profile = wuserver
 build bin/wuclient.jar: uberjar | src/zmq_clj/wuclient.clj
   profile = wuclient
+# XPUB, XSUB - proxy
+build bin/wuproxy.jar: uberjar | src/zmq_clj/wuproxy.clj
+  profile = wuproxy
 
 # Ventilator Worker Sink (PUSHPULL, PIPELINE
-#   - load balanced (PUSH) one-way dataflow with fair queueing (PULL), map/reduce)
+# - load balanced (PUSH) one-way dataflow with fair queueing (PULL), map/reduce)
 build bin/taskvent.jar: uberjar | src/zmq_clj/taskvent.clj
   profile = taskvent
 build bin/taskwork.jar: uberjar | src/zmq_clj/taskwork.clj
@@ -25,14 +29,14 @@ build bin/tasksink.jar: uberjar | src/zmq_clj/tasksink.clj
   profile = tasksink
 
 # Read from multiple sockets at the same time (POLL
-#   - sockets monitoring, multiplexing)
+# - sockets monitoring, multiplexing)
 build bin/msreader.jar: uberjar | src/zmq_clj/msreader.clj
   profile = msreader
 build bin/mspoller.jar: uberjar | src/zmq_clj/mspoller.clj
   profile = mspoller
 
 # Client Broker/MessageQueue Worker (ROUTER, DEALTER - async REQREP
-#   - fair queueing (ROUTER) sockets multiplexing (POLL) load balancing (DEALER))
+# - fair queueing (ROUTER) sockets multiplexing (POLL) load balancing (DEALER))
 build bin/rrclient.jar: uberjar | src/zmq_clj/rrclient.clj
   profile = rrclient
 build bin/rrworker.jar: uberjar | src/zmq_clj/rrworker.clj
@@ -44,7 +48,7 @@ build bin/msgqueue.jar: uberjar | src/zmq_clj/msgqueue.clj
 
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar $
-  bin/wuserver.jar bin/wuclient.jar $
+  bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
   bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
   bin/msreader.jar bin/mspoller.jar $
   bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar
@@ -52,7 +56,7 @@ build all: phony $
 rule clean
   command = rm -f $
     bin/hwserver.jar bin/hwclient.jar $
-    bin/wuserver.jar bin/wuclient.jar $
+    bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
     bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
     bin/msreader.jar bin/mspoller.jar $
     bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar
