@@ -52,14 +52,23 @@ $ ./bin/run.sh bin/hwclient.jar
 ```
 
 ## Examples
-- hwserver hwclient
-- wuserver wuclient
-- taskvent taskwork tasksink
-- wuserver&taskvent msreader
-- wuserver&taskvent mspoller
-- rrclient rrbroker rrworker
-- rrclient msgqueue rrworker
-- wuserver wuproxy wuclient
+- **hwserver** **hwclient** (REQREQ - sync stateless service, client/server)
+- **wuserver** **wuclient** (PUBSUB - broadcasting, publisher/subscriber)
+- **taskvent** **taskwork** **tasksink** (PUSHPULL, PIPELINE - load balancing
+  (PUSH) one-way dataflow with fair queueing (PULL), map/reduce)
+- **wuserver**&**taskvent** **msreader** (DONTWAIT read
+  from multiple sockets at the same time)
+- **wuserver**&**taskvent** **mspoller** (POLL - sockets multiplexing, read
+  from multiple sockets at the same time)
+- **rrclient** **rrbroker** **rrworker** (ROUTER, DEALER - async REQREP
+  fair queueing (ROUTER) sockets multiplexing (POLL) load balancing (DEALTER))
+- **rrclient** **msgqueue** **rrworker** (PROXY - connect frontend with
+  backend via POLL)
+- **wuserver** **wuproxy** **wuclient** (PUBSUB - broadcasting,
+  publisher/subscriber, XPUBXSUB with PROXY)
+- **taskvent** **taskwork2** **tasksink2** (PUSHPULL, PIPELINE - load
+  balancing (PUSH) one-way dataflow with fair queueing (PULL), map/reduce,
+  shutdown workers with PUBSUB)
 
 ## License
 

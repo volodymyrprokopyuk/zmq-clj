@@ -36,4 +36,8 @@
               :msgqueue { :main zmq-clj.msgqueue
                           :uberjar-name "msgqueue.jar" }
               :wuproxy { :main zmq-clj.wuproxy
-                          :uberjar-name "wuproxy.jar" } })
+                         :uberjar-name "wuproxy.jar" }
+              :taskwork2 { :main zmq-clj.taskwork2
+                           :uberjar-name "taskwork2.jar" }
+              :tasksink2 { :main zmq-clj.tasksink2
+                           :uberjar-name "tasksink2.jar" } })
