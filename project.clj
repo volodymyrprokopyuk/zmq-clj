@@ -40,4 +40,6 @@
               :taskwork2 { :main zmq-clj.taskwork2
                            :uberjar-name "taskwork2.jar" }
               :tasksink2 { :main zmq-clj.tasksink2
-                           :uberjar-name "tasksink2.jar" } })
+                           :uberjar-name "tasksink2.jar" }
+              :mtserver { :main zmq-clj.mtserver
+                           :uberjar-name "mtserver.jar" } })

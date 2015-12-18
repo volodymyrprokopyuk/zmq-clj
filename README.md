@@ -61,7 +61,7 @@ $ ./bin/run.sh bin/hwclient.jar
 - **wuserver**&**taskvent** **mspoller** (POLL - sockets multiplexing, read
   from multiple sockets at the same time)
 - **rrclient** **rrbroker** **rrworker** (ROUTER, DEALER - async REQREP
-  fair queueing (ROUTER) sockets multiplexing (POLL) load balancing (DEALTER))
+  fair queueing (ROUTER) sockets multiplexing (POLL) load balancing (DEALER))
 - **rrclient** **msgqueue** **rrworker** (PROXY - connect frontend with
   backend via POLL)
 - **wuserver** **wuproxy** **wuclient** (PUBSUB - broadcasting,
@@ -69,6 +69,8 @@ $ ./bin/run.sh bin/hwclient.jar
 - **taskvent** **taskwork2** **tasksink2** (PUSHPULL, PIPELINE - load
   balancing (PUSH) one-way dataflow with fair queueing (PULL), map/reduce,
   shutdown workers with PUBSUB)
+- **mtserver** **hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse
+  the broker and workders in a single process (INPROC))
 
 ## License
 
