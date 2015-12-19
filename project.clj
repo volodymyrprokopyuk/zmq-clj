@@ -48,4 +48,8 @@
               :syncpub { :main zmq-clj.syncpub
                          :uberjar-name "syncpub.jar" }
               :syncsub { :main zmq-clj.syncsub
-                         :uberjar-name "syncsub.jar" } })
+                         :uberjar-name "syncsub.jar" }
+              :psenvpub { :main zmq-clj.psenvpub
+                          :uberjar-name "psenvpub.jar" }
+              :psenvsub { :main zmq-clj.psenvsub
+                          :uberjar-name "psenvsub.jar" } })

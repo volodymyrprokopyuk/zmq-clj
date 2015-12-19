@@ -77,6 +77,8 @@ $ ./bin/run.sh bin/hwclient.jar
   coordination, no automatic reconnection)
 - **syncpub** **syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for
   node syncronization)
+- **psenvpub** **psenvsub** (PUBSUB envelope with SNDMORE for message key and
+  message data)
 
 ## License
 

@@ -49,6 +49,11 @@ build bin/msgqueue.jar: uberjar | src/zmq_clj/msgqueue.clj
 build bin/mtrelay.jar: uberjar | src/zmq_clj/mtrelay.clj
   profile = mtrelay
 
+build bin/psenvpub.jar: uberjar | src/zmq_clj/psenvpub.clj
+  profile = psenvpub
+build bin/psenvsub.jar: uberjar | src/zmq_clj/psenvsub.clj
+  profile = psenvsub
+
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar bin/mtserver.jar $
   bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
@@ -57,7 +62,8 @@ build all: phony $
   bin/taskwork2.jar bin/tasksink2.jar $
   bin/msreader.jar bin/mspoller.jar $
   bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
-  bin/mtrelay.jar
+  bin/mtrelay.jar $
+  bin/psenvpub.jar bin/psenvsub.jar
 
 rule clean
   command = rm -f $
@@ -68,7 +74,8 @@ rule clean
     bin/taskwork2.jar bin/tasksink2.jar $
     bin/msreader.jar bin/mspoller.jar $
     bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
-    bin/mtrelay.jar
+    bin/mtrelay.jar $
+    bin/psenvpub.jar bin/psenvsub.jar
   description = [ clean ]
 
 build clean: clean
