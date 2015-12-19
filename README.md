@@ -57,28 +57,28 @@ $ ./bin/run.sh bin/hwclient.jar
   publisher/subscriber)
 - **taskvent** **taskwork** **tasksink** (PUSHPULL, PIPELINE - load balancing,
   distribution (PUSH) one-way dataflow with fair queueing (PULL), map/reduce)
-- **wuserver**&**taskvent** **msreader** (DONTWAIT read
-  from multiple sockets at the same time)
+- **wuserver**&**taskvent** **msreader** (DONTWAIT read from multiple sockets at
+  the same time)
 - **wuserver**&**taskvent** **mspoller** (POLL - sockets multiplexing, read
   from multiple sockets at the same time)
-- **rrclient** **rrbroker** **rrworker** (ROUTER, DEALER - async REQREP
-  fair queueing (ROUTER) sockets multiplexing (POLL) load balancing,
+- **rrclient** **rrbroker** **rrworker** (ROUTER, DEALER - async REQREP fair
+  queueing (ROUTER) sockets multiplexing (POLL) load balancing,
   distribution (DEALER))
-- **rrclient** **msgqueue** **rrworker** (PROXY - connect frontend with
-  backend via POLL)
+- **rrclient** **msgqueue** **rrworker** (PROXY - connect frontend with backend
+  via POLL)
 - **wuserver** **wuproxy** **wuclient** (PUBSUB - broadcasting,
   publisher/subscriber, XPUBXSUB with PROXY)
-- **taskvent** **taskwork2** **tasksink2** (PUSHPULL, PIPELINE - load
-  balancing (PUSH) one-way dataflow with fair queueing (PULL), map/reduce,
-  shutdown workers with PUBSUB)
+- **taskvent** **taskwork2** **tasksink2** (PUSHPULL, PIPELINE - load balancing
+  (PUSH) one-way dataflow with fair queueing (PULL), map/reduce, shutdown
+  workers with PUBSUB)
 - **mtserver** **hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse
   the broker and workders in a single process (INPROC))
 - **mtrelay** (INPROC PAIR - exclusive connection between two threads only for
   coordination, no automatic reconnection)
 - **syncpub** **syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for
   node syncronization)
-- **psenvpub** **psenvsub** (PUBSUB envelope with SNDMORE for message key and
-  message data)
+- **psenvpub** **psenvsub** (PUBSUB envelope with SNDMORE for message key
+  (subscribe) and message data)
 
 ## License
 
