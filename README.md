@@ -53,15 +53,17 @@ $ ./bin/run.sh bin/hwclient.jar
 
 ## Examples
 - **hwserver** **hwclient** (REQREQ - sync stateless service, client/server)
-- **wuserver** **wuclient** (PUBSUB - broadcasting, publisher/subscriber)
-- **taskvent** **taskwork** **tasksink** (PUSHPULL, PIPELINE - load balancing
-  (PUSH) one-way dataflow with fair queueing (PULL), map/reduce)
+- **wuserver** **wuclient** (PUBSUB - broadcasting, no distribution,
+  publisher/subscriber)
+- **taskvent** **taskwork** **tasksink** (PUSHPULL, PIPELINE - load balancing,
+  distribution (PUSH) one-way dataflow with fair queueing (PULL), map/reduce)
 - **wuserver**&**taskvent** **msreader** (DONTWAIT read
   from multiple sockets at the same time)
 - **wuserver**&**taskvent** **mspoller** (POLL - sockets multiplexing, read
   from multiple sockets at the same time)
 - **rrclient** **rrbroker** **rrworker** (ROUTER, DEALER - async REQREP
-  fair queueing (ROUTER) sockets multiplexing (POLL) load balancing (DEALER))
+  fair queueing (ROUTER) sockets multiplexing (POLL) load balancing,
+  distribution (DEALER))
 - **rrclient** **msgqueue** **rrworker** (PROXY - connect frontend with
   backend via POLL)
 - **wuserver** **wuproxy** **wuclient** (PUBSUB - broadcasting,
@@ -71,6 +73,8 @@ $ ./bin/run.sh bin/hwclient.jar
   shutdown workers with PUBSUB)
 - **mtserver** **hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse
   the broker and workders in a single process (INPROC))
+- **mtrelay** (PAIR - exclusive connection between two points, signaling between
+  thrads INPROC)
 
 ## License
 

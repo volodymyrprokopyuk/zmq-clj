@@ -42,4 +42,6 @@
               :tasksink2 { :main zmq-clj.tasksink2
                            :uberjar-name "tasksink2.jar" }
               :mtserver { :main zmq-clj.mtserver
-                           :uberjar-name "mtserver.jar" } })
+                          :uberjar-name "mtserver.jar" }
+              :mtrelay { :main zmq-clj.mtrelay
+                         :uberjar-name "mtrelay.jar" } })

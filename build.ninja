@@ -42,13 +42,17 @@ build bin/rrbroker.jar: uberjar | src/zmq_clj/rrbroker.clj
 build bin/msgqueue.jar: uberjar | src/zmq_clj/msgqueue.clj
   profile = msgqueue
 
+build bin/mtrelay.jar: uberjar | src/zmq_clj/mtrelay.clj
+  profile = mtrelay
+
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar bin/mtserver.jar $
   bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
   bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
   bin/taskwork2.jar bin/tasksink2.jar $
   bin/msreader.jar bin/mspoller.jar $
-  bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar
+  bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
+  bin/mtrelay.jar
 
 rule clean
   command = rm -f $
@@ -57,7 +61,8 @@ rule clean
     bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
     bin/taskwork2.jar bin/tasksink2.jar $
     bin/msreader.jar bin/mspoller.jar $
-    bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar
+    bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
+    bin/mtrelay.jar
   description = [ clean ]
 
 build clean: clean
