@@ -73,8 +73,10 @@ $ ./bin/run.sh bin/hwclient.jar
   shutdown workers with PUBSUB)
 - **mtserver** **hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse
   the broker and workders in a single process (INPROC))
-- **mtrelay** (PAIR - exclusive connection between two points, signaling between
-  thrads INPROC)
+- **mtrelay** (INPROC PAIR - exclusive connection between two threads only for
+  coordination, no automatic reconnection)
+- **syncpub** **syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for
+  node syncronization)
 
 ## License
 

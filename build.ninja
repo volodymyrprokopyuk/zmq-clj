@@ -16,6 +16,10 @@ build bin/wuclient.jar: uberjar | src/zmq_clj/wuclient.clj
   profile = wuclient
 build bin/wuproxy.jar: uberjar | src/zmq_clj/wuproxy.clj
   profile = wuproxy
+build bin/syncpub.jar: uberjar | src/zmq_clj/syncpub.clj
+  profile = syncpub
+build bin/syncsub.jar: uberjar | src/zmq_clj/syncsub.clj
+  profile = syncsub
 
 build bin/taskvent.jar: uberjar | src/zmq_clj/taskvent.clj
   profile = taskvent
@@ -48,6 +52,7 @@ build bin/mtrelay.jar: uberjar | src/zmq_clj/mtrelay.clj
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar bin/mtserver.jar $
   bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
+  bin/syncpub.jar bin/syncsub.jar $
   bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
   bin/taskwork2.jar bin/tasksink2.jar $
   bin/msreader.jar bin/mspoller.jar $
@@ -58,6 +63,7 @@ rule clean
   command = rm -f $
     bin/hwserver.jar bin/hwclient.jar bin/mtserver.jar $
     bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
+    bin/syncpub.jar bin/syncsub.jar $
     bin/taskvent.jar bin/taskwork.jar bin/tasksink.jar $
     bin/taskwork2.jar bin/tasksink2.jar $
     bin/msreader.jar bin/mspoller.jar $

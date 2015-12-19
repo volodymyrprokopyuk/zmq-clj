@@ -44,4 +44,8 @@
               :mtserver { :main zmq-clj.mtserver
                           :uberjar-name "mtserver.jar" }
               :mtrelay { :main zmq-clj.mtrelay
-                         :uberjar-name "mtrelay.jar" } })
+                         :uberjar-name "mtrelay.jar" }
+              :syncpub { :main zmq-clj.syncpub
+                         :uberjar-name "syncpub.jar" }
+              :syncsub { :main zmq-clj.syncsub
+                         :uberjar-name "syncsub.jar" } })
