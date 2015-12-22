@@ -79,6 +79,33 @@ $ ./bin/run.sh bin/hwclient.jar
   node syncronization)
 - **psenvpub** **psenvsub** (PUBSUB envelope with SNDMORE for message key
   (subscribe) and message data)
+- **rtreq** (ROUTER broker (round-robin distribution), REQ worker, Least
+  Recently Used worker)
+- **rtdealer** (ROUTER broker (round-robin distribution), DEALER worker, Least
+  Recently Used worker)
+- **lbbroker** (REQ ROUTER PROXY ROUTER REQ - load balancing message broker,
+  Least Recently Used worker)
+
+## Sockets types
+- **REQ**
+    - (/), data
+    - sync
+    - distributed load balancing
+- **REP**
+    - strip/wrap
+    - sync
+    - fair queueing
+- **DEALER**
+    - pass through
+    - async
+    - fair queueing
+    - distributed load balancing
+    - like async REQ (async client)
+- **ROUTER**
+    - identity, (/), data
+    - async
+    - fair queueing
+    - like async REP (async server)
 
 ## License
 

@@ -52,4 +52,10 @@
               :psenvpub { :main zmq-clj.psenvpub
                           :uberjar-name "psenvpub.jar" }
               :psenvsub { :main zmq-clj.psenvsub
-                          :uberjar-name "psenvsub.jar" } })
+                          :uberjar-name "psenvsub.jar" }
+              :rtreq { :main zmq-clj.rtreq
+                          :uberjar-name "rtreq.jar" }
+              :rtdealer { :main zmq-clj.rtdealer
+                          :uberjar-name "rtdealer.jar" }
+              :lbbroker { :main zmq-clj.lbbroker
+                          :uberjar-name "lbbroker.jar" } })

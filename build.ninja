@@ -54,6 +54,13 @@ build bin/psenvpub.jar: uberjar | src/zmq_clj/psenvpub.clj
 build bin/psenvsub.jar: uberjar | src/zmq_clj/psenvsub.clj
   profile = psenvsub
 
+build bin/rtreq.jar: uberjar | src/zmq_clj/rtreq.clj
+  profile = rtreq
+build bin/rtdealer.jar: uberjar | src/zmq_clj/rtdealer.clj
+  profile = rtdealer
+build bin/lbbroker.jar: uberjar | src/zmq_clj/lbbroker.clj
+  profile = lbbroker
+
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar bin/mtserver.jar $
   bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
@@ -63,7 +70,8 @@ build all: phony $
   bin/msreader.jar bin/mspoller.jar $
   bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
   bin/mtrelay.jar $
-  bin/psenvpub.jar bin/psenvsub.jar
+  bin/psenvpub.jar bin/psenvsub.jar $
+  bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar
 
 rule clean
   command = rm -f $
@@ -75,7 +83,8 @@ rule clean
     bin/msreader.jar bin/mspoller.jar $
     bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
     bin/mtrelay.jar $
-    bin/psenvpub.jar bin/psenvsub.jar
+    bin/psenvpub.jar bin/psenvsub.jar $
+    bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar
   description = [ clean ]
 
 build clean: clean
