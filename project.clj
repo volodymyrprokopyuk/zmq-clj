@@ -58,4 +58,7 @@
               :rtdealer { :main zmq-clj.rtdealer
                           :uberjar-name "rtdealer.jar" }
               :lbbroker { :main zmq-clj.lbbroker
-                          :uberjar-name "lbbroker.jar" } })
+                          :uberjar-name "lbbroker.jar" }
+              :asyncsrv { :main zmq-clj.asyncsrv
+                          :uberjar-name "asyncsrv.jar" }
+              })

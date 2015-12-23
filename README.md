@@ -85,6 +85,7 @@ $ ./bin/run.sh bin/hwclient.jar
   Recently Used worker)
 - **lbbroker** (REQ ROUTER PROXY ROUTER REQ - load balancing message broker,
   Least Recently Used worker)
+- **asyncsrv** (DEALER ROUTER DEALER DEALER - async client/server)
 
 ## Sockets types
 - **REQ**

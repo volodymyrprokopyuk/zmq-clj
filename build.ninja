@@ -61,6 +61,9 @@ build bin/rtdealer.jar: uberjar | src/zmq_clj/rtdealer.clj
 build bin/lbbroker.jar: uberjar | src/zmq_clj/lbbroker.clj
   profile = lbbroker
 
+build bin/asyncsrv.jar: uberjar | src/zmq_clj/asyncsrv.clj
+  profile = asyncsrv
+
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar bin/mtserver.jar $
   bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
@@ -71,7 +74,8 @@ build all: phony $
   bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
   bin/mtrelay.jar $
   bin/psenvpub.jar bin/psenvsub.jar $
-  bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar
+  bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar $
+  bin/asyncsrv.jar
 
 rule clean
   command = rm -f $
@@ -84,7 +88,8 @@ rule clean
     bin/rrclient.jar bin/rrworker.jar bin/rrbroker.jar bin/msgqueue.jar $
     bin/mtrelay.jar $
     bin/psenvpub.jar bin/psenvsub.jar $
-    bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar
+    bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar $
+    bin/asyncsrv.jar
   description = [ clean ]
 
 build clean: clean
