@@ -9,6 +9,5 @@
       (while (not (.. Thread currentThread isInterrupted))
         (let [ zip (rand-int 100000)
                temp (- (rand-int 70) 30)
-               hum (rand-int 101)
-               message (format "%s %s %s" zip temp hum) ]
-          (-> publisher (zmq/send-str message)))))))
+               hum (rand-int 101) ]
+          (-> publisher (zmq/send-str (format "%s %s %s" zip temp hum))))))))

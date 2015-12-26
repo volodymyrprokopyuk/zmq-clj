@@ -1,5 +1,8 @@
 # zmq-clj
 
+[ZeroMQ](https://github.com/zeromq/libzmq) is a network library and concurrency
+framework with async IO
+
 [ZeroMQ Guide examples in Clojure](https://github.com/imatix/zguide)
 
 [ZeroMQ Book](http://shop.oreilly.com/product/0636920026136.do)
@@ -52,11 +55,11 @@ $ ./bin/run.sh bin/hwclient.jar
 ```
 
 ## Examples
-- **hwserver** **hwclient** (REQREQ - sync stateless service, client/server)
-- **wuserver** **wuclient** (PUBSUB - broadcasting, no distribution,
-  publisher/subscriber)
-- **taskvent** **taskwork** **tasksink** (PUSHPULL, PIPELINE - load balancing,
-  distribution (PUSH) one-way dataflow with fair queueing (PULL), map/reduce)
+- **hwserver** **hwclient** (REQ, REP - sync client/server service)
+- **wuserver** **wuclient** (PUB, SUB - async publisher/subscriber broadcasting
+  with no distribution)
+- **taskvent** **taskwork** **tasksink** (PUSH, PULL or PIPELINE - map/reduce
+  with PUSH distributed load balancing and PULL fair queueing)
 - **wuserver**&**taskvent** **msreader** (DONTWAIT read from multiple sockets at
   the same time)
 - **wuserver**&**taskvent** **mspoller** (POLL - sockets multiplexing, read
@@ -89,12 +92,14 @@ $ ./bin/run.sh bin/hwclient.jar
 
 ## Sockets types
 - **REQ**
-    - (/), data
+    - initiates commutication
     - sync
+    - (/), data
     - distributed load balancing
 - **REP**
-    - strip/wrap
+    - waits for requests
     - sync
+    - strip/wrap
     - fair queueing
 - **DEALER**
     - pass through
@@ -107,6 +112,10 @@ $ ./bin/run.sh bin/hwclient.jar
     - async
     - fair queueing
     - like async REP (async server)
+- **PUSH**
+    - distributed load balancing (round-robin)
+- **PULL**
+    - fair queueing
 
 ## License
 
