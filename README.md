@@ -55,42 +55,42 @@ $ ./bin/run.sh bin/hwclient.jar
 ```
 
 ## Examples
-- **hwserver hwclient** (REQ, REP - sync client/server service)
-- **wuserver wuclient** (PUB, SUB - async publisher/subscriber broadcasting with
-  no distribution)
-- **taskvent taskwork tasksink** (PUSH, PULL or PIPELINE - map/reduce with PUSH
-  distributed load balancing and PULL fair queueing)
-- **wuserver/taskvent msreader** (DONTWAIT - read from multiple sockets at the
-  same time)
-- **wuserver/taskvent mspoller** (POLL - sockets multiplexing, read from
-  multiple sockets at the same time)
-- **rrclient rrbroker rrworker** (REQ, ROUTER, DEALER, REP - async
-  client/server, ROUTER fair queueing, POLL sockets multiplexing, DEALER
-  distributed load balancing, SENDMORE multipart messages)
-- **rrclient msgqueue rrworker** (PROXY - connect frontend with backend via
-  POLL)
-- **wuserver wuproxy wuclient** (PUBSUB - broadcasting, publisher/subscriber,
-  XPUBXSUB with PROXY)
-- **taskvent taskwork2 tasksink2** (PUSHPULL, PIPELINE - load balancing (PUSH)
-  one-way dataflow with fair queueing (PULL), map/reduce, shutdown workers with
-  PUBSUB)
-- **mtserver hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse the
-  broker and workders in a single process (INPROC))
-- **mtrelay** (INPROC PAIR - exclusive connection between two threads only for
-  coordination, no automatic reconnection)
-- **syncpub syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for node
-  syncronization)
-- **psenvpub psenvsub** (PUBSUB envelope with SNDMORE for message key
-  (subscribe) and message data)
-- **rtreq** (ROUTER broker (round-robin distribution), REQ worker, Least
-  Recently Used worker)
-- **rtdealer** (ROUTER broker (round-robin distribution), DEALER worker, Least
-  Recently Used worker)
-- **lbbroker** (REQ ROUTER PROXY ROUTER REQ - load balancing message broker,
-  Least Recently Used worker)
-- **asyncsrv** (DEALER ROUTER DEALER DEALER - async client/server)
+1. **hwserver hwclient** (REQ, REP - sync client/server service)
+1. **wuserver wuclient** (PUB, SUB - async publisher/subscriber broadcasting
+   with no distribution)
+1. **taskvent taskwork tasksink** (PUSH, PULL or PIPELINE - map/reduce with PUSH
+   distributed load balancing and PULL fair queueing)
+1. **wuserver/taskvent msreader** (DONTWAIT - read from multiple sockets at the
+   same time)
+1. **wuserver/taskvent mspoller** (POLL - sockets multiplexing, read from
+   multiple sockets at the same time)
+1. **rrclient rrbroker rrworker** (REQ, ROUTER, DEALER, REP - async
+   client/server, ROUTER fair queueing, POLL sockets multiplexing, DEALER
+   distributed load balancing, SENDMORE multipart messages)
+1. **rrclient msgqueue rrworker** (PROXY - connect frontend with backend via
+   POLL)
+1. **wuserver wuproxy wuclient** (PUBSUB - broadcasting, publisher/subscriber,
+   XPUBXSUB with PROXY)
+1. **taskvent taskwork2 tasksink2** (PUSHPULL, PIPELINE - load balancing (PUSH)
+   one-way dataflow with fair queueing (PULL), map/reduce, shutdown workers with
+   PUBSUB)
+1. **mtserver hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse the
+   broker and workders in a single process (INPROC))
+1. **mtrelay** (INPROC PAIR - exclusive connection between two threads only for
+   coordination, no automatic reconnection)
+1. **syncpub syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for node
+   syncronization)
+1. **psenvpub psenvsub** (PUBSUB envelope with SNDMORE for message key
+   (subscribe) and message data)
+1. **rtreq** (ROUTER broker (round-robin distribution), REQ worker, Least
+   Recently Used worker)
+1. **rtdealer** (ROUTER broker (round-robin distribution), DEALER worker, Least
+   Recently Used worker)
+1. **lbbroker** (REQ ROUTER PROXY ROUTER REQ - load balancing message broker,
+   Least Recently Used worker)
+1. **asyncsrv** (DEALER ROUTER DEALER DEALER - async client/server)
 
-## Sockets types
+## Socket types
 - **REQ**
     - (/), data
     - sync
