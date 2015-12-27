@@ -5,8 +5,8 @@
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
     (with-open [ subscriber (-> context (zmq/socket :sub)
-                              (zmq/connect "tcp://127.0.0.1:5556")
-                              ;(zmq/connect "tcp://127.0.0.1:5557") ; with proxy
+                              ;(zmq/connect "tcp://127.0.0.1:5556")
+                              (zmq/connect "tcp://127.0.0.1:5557") ; to wuproxy.clj
                               (zmq/subscribe "28921") ; set subscriptions
                               (zmq/subscribe "28042")) ]
       (dotimes [ _ 5 ]

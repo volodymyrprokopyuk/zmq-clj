@@ -67,13 +67,13 @@ $ ./bin/run.sh bin/hwclient.jar
 1. **rrclient rrbroker rrworker** (REQ, ROUTER, DEALER, REP - async
    client/server, ROUTER fair queueing, POLL sockets multiplexing, DEALER
    distributed load balancing, SENDMORE multipart messages)
-1. **rrclient msgqueue rrworker** (PROXY - connect frontend with backend via
-   POLL)
-1. **wuserver wuproxy wuclient** (PUBSUB - broadcasting, publisher/subscriber,
-   XPUBXSUB with PROXY)
-1. **taskvent taskwork2 tasksink2** (PUSHPULL, PIPELINE - load balancing (PUSH)
-   one-way dataflow with fair queueing (PULL), map/reduce, shutdown workers with
-   PUBSUB)
+1. **rrclient msgqueue rrworker** (REQ, ROUTER, DEALER, REP - async
+   client/server, PROXY - connect frontend with backend via POLL)
+1. **wuserver wuproxy wuclient** (PUB, XSUB, XPUB, SUB - async
+   publisher/subscriber broadcasting with PROXY via POLL)
+1. **taskvent taskwork2 tasksink2** (PUSH, PULL or PIPELINE - map/reduce with
+   PUSH distributed load balancing and PULL fair queueing, shutdown workers with
+   PUB, SUB)
 1. **mtserver hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse the
    broker and workders in a single process (INPROC))
 1. **mtrelay** (INPROC PAIR - exclusive connection between two threads only for

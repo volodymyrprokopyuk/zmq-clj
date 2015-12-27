@@ -5,8 +5,8 @@
 
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
-    (with-open [ frontend (doto (zmq/socket context :xsub)
-                            (zmq/connect "tcp://127.0.0.1:5556"))
-                 backend (doto (zmq/socket context :xpub)
-                           (zmq/bind "tcp://127.0.0.1:5557")) ]
-      (device/proxy context frontend backend))))
+    (with-open [ frontend (-> context (zmq/socket :xsub)
+                            (zmq/connect "tcp://127.0.0.1:5556")) ; to wuserver.clj
+                 backend (-> context (zmq/socket :xpub)
+                           (zmq/bind "tcp://127.0.0.1:5557")) ] ; for wuclient.clj
+      (-> context (device/proxy frontend backend)))))

@@ -5,8 +5,8 @@
 
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
-    (with-open [ frontend (doto (zmq/socket context :router) ; fair queueing
-                            (zmq/bind "tcp://*:5559"))
-                 backend (doto (zmq/socket context :dealer) ; load balancing
-                           (zmq/bind "tcp://*:5560")) ]
-      (device/proxy context frontend backend))))
+    (with-open [ frontend (-> context (zmq/socket :router) ; fair queueing
+                            (zmq/bind "tcp://*:5559")) ; async server
+                 backend (-> context (zmq/socket :dealer) ; load balancing
+                           (zmq/bind "tcp://*:5560")) ] ; async client
+      (-> context (device/proxy frontend backend)))))
