@@ -55,32 +55,32 @@ $ ./bin/run.sh bin/hwclient.jar
 ```
 
 ## Examples
-- **hwserver** **hwclient** (REQ, REP - sync client/server service)
-- **wuserver** **wuclient** (PUB, SUB - async publisher/subscriber broadcasting
-  with no distribution)
-- **taskvent** **taskwork** **tasksink** (PUSH, PULL or PIPELINE - map/reduce
-  with PUSH distributed load balancing and PULL fair queueing)
-- **wuserver**&**taskvent** **msreader** (DONTWAIT read from multiple sockets at
-  the same time)
-- **wuserver**&**taskvent** **mspoller** (POLL - sockets multiplexing, read
-  from multiple sockets at the same time)
-- **rrclient** **rrbroker** **rrworker** (ROUTER, DEALER - async REQREP fair
-  queueing (ROUTER) sockets multiplexing (POLL) load balancing,
-  distribution (DEALER))
-- **rrclient** **msgqueue** **rrworker** (PROXY - connect frontend with backend
-  via POLL)
-- **wuserver** **wuproxy** **wuclient** (PUBSUB - broadcasting,
-  publisher/subscriber, XPUBXSUB with PROXY)
-- **taskvent** **taskwork2** **tasksink2** (PUSHPULL, PIPELINE - load balancing
-  (PUSH) one-way dataflow with fair queueing (PULL), map/reduce, shutdown
-  workers with PUBSUB)
-- **mtserver** **hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse
-  the broker and workders in a single process (INPROC))
+- **hwserver hwclient** (REQ, REP - sync client/server service)
+- **wuserver wuclient** (PUB, SUB - async publisher/subscriber broadcasting with
+  no distribution)
+- **taskvent taskwork tasksink** (PUSH, PULL or PIPELINE - map/reduce with PUSH
+  distributed load balancing and PULL fair queueing)
+- **wuserver/taskvent msreader** (DONTWAIT - read from multiple sockets at the
+  same time)
+- **wuserver/taskvent mspoller** (POLL - sockets multiplexing, read from
+  multiple sockets at the same time)
+- **rrclient rrbroker rrworker** (REQ, ROUTER, DEALER, REP - async
+  client/server, ROUTER fair queueing, POLL sockets multiplexing, DEALER
+  distributed load balancing, SENDMORE multipart messages)
+- **rrclient msgqueue rrworker** (PROXY - connect frontend with backend via
+  POLL)
+- **wuserver wuproxy wuclient** (PUBSUB - broadcasting, publisher/subscriber,
+  XPUBXSUB with PROXY)
+- **taskvent taskwork2 tasksink2** (PUSHPULL, PIPELINE - load balancing (PUSH)
+  one-way dataflow with fair queueing (PULL), map/reduce, shutdown workers with
+  PUBSUB)
+- **mtserver hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse the
+  broker and workders in a single process (INPROC))
 - **mtrelay** (INPROC PAIR - exclusive connection between two threads only for
   coordination, no automatic reconnection)
-- **syncpub** **syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for
-  node syncronization)
-- **psenvpub** **psenvsub** (PUBSUB envelope with SNDMORE for message key
+- **syncpub syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for node
+  syncronization)
+- **psenvpub psenvsub** (PUBSUB envelope with SNDMORE for message key
   (subscribe) and message data)
 - **rtreq** (ROUTER broker (round-robin distribution), REQ worker, Least
   Recently Used worker)
@@ -92,15 +92,15 @@ $ ./bin/run.sh bin/hwclient.jar
 
 ## Sockets types
 - **REQ**
-    - initiates commutication
-    - sync
     - (/), data
-    - distributed load balancing
-- **REP**
-    - waits for requests
     - sync
+    - distributed load balancing
+    - initiates commutication
+- **REP**
     - strip/wrap
+    - sync
     - fair queueing
+    - waits for requests
 - **DEALER**
     - pass through
     - async

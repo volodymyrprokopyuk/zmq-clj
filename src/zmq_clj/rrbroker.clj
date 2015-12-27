@@ -5,23 +5,23 @@
 (defn -main [ ]
   (let [ context (zmq/context 1)
          poller (zmq/poller context 2) ]
-    (with-open [ frontend (doto (zmq/socket context :router) ; fair queueing
-                            (zmq/bind "tcp://*:5559"))
-                 backend (doto (zmq/socket context :dealer) ; load balancing
-                           (zmq/bind "tcp://*:5560")) ]
-      (zmq/register poller frontend :pollin)
-      (zmq/register poller backend :pollin)
-      (while (not (.. Thread currentThread isInterrupted))
-        (zmq/poll poller)
-        (when (zmq/check-poller poller 0 :pollin)
-          (loop [ part (zmq/receive frontend) ]
-            (let [ more? (zmq/receive-more? frontend) ]
-              (zmq/send backend part (if more? zmq/send-more 0))
-              (when more?
-                (recur (zmq/receive frontend))))))
-        (when (zmq/check-poller poller 1 :pollin)
-          (loop [ part (zmq/receive backend) ]
-            (let [ more? (zmq/receive-more? backend) ]
-              (zmq/send frontend part (if more? zmq/send-more 0))
-              (when more?
-                (recur (zmq/receive backend))))))))))
+    (with-open [ frontend (-> context (zmq/socket :router) ; fair queueing
+                            (zmq/bind "tcp://*:5559")) ; async server
+                 backend (-> context (zmq/socket :dealer) ; distributed load balancing
+                           (zmq/bind "tcp://*:5560")) ] ; async client
+      (let [ frontend-index (-> poller (zmq/register frontend :pollin))
+             backend-index (-> poller (zmq/register backend :pollin)) ]
+        (while (not (.. Thread currentThread isInterrupted))
+          (-> poller zmq/poll)
+          (when (-> poller (zmq/check-poller frontend-index :pollin))
+            (loop [ part (-> frontend zmq/receive) ]
+              (let [ more? (-> frontend zmq/receive-more?) ]
+                (-> backend (zmq/send part (if more? zmq/send-more 0)))
+                (when more?
+                  (recur (-> frontend zmq/receive))))))
+          (when (-> poller (zmq/check-poller backend-index :pollin))
+            (loop [ part (-> backend zmq/receive) ]
+              (let [ more? (-> backend zmq/receive-more?) ]
+                (-> frontend (zmq/send part (if more? zmq/send-more 0)))
+                (when more?
+                  (recur (-> backend zmq/receive)))))))))))

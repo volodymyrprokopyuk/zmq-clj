@@ -4,11 +4,11 @@
 
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
-    (with-open [ subscriber (doto (zmq/socket context :sub) ; to wuserver.clj
+    (with-open [ subscriber (-> context (zmq/socket :sub) ; to wuserver.clj
                               (zmq/connect "tcp://127.0.0.1:5556")
-                              (zmq/subscribe "28921")
+                              (zmq/subscribe "28921") ; set subscriptions
                               (zmq/subscribe "28042"))
-                 consumer (doto (zmq/socket context :pull) ; of taskvent.clj
+                 consumer (-> context (zmq/socket :pull) ; of taskvent.clj
                             (zmq/connect "tcp://127.0.0.1:5557")) ]
       (while (not (.. Thread currentThread isInterrupted))
         (loop [ ]

@@ -4,7 +4,7 @@
 
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
-    (with-open [ receiver (doto (zmq/socket context :pull) ; fair queueing
+    (with-open [ receiver (-> context (zmq/socket :pull) ; fair queueing
                             (zmq/bind "tcp://*:5558")) ]
       (-> receiver zmq/receive-str println) ; wait for batch synchronization
       (let [ start (System/currentTimeMillis) ]

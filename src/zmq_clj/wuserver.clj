@@ -4,7 +4,7 @@
 
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
-    (with-open [ publisher (doto (zmq/socket context :pub)
+    (with-open [ publisher (-> context (zmq/socket :pub)
                              (zmq/bind "tcp://*:5556")) ]
       (while (not (.. Thread currentThread isInterrupted))
         (let [ zip (rand-int 100000)

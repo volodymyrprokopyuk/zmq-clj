@@ -4,9 +4,9 @@
 
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
-    (with-open [ consumer (doto (zmq/socket context :pull)
+    (with-open [ consumer (-> context (zmq/socket :pull)
                             (zmq/connect "tcp://127.0.0.1:5557"))
-                 sender (doto (zmq/socket context :push)
+                 sender (-> context (zmq/socket :push)
                           (zmq/connect "tcp://127.0.0.1:5558")) ]
       (while (not (.. Thread currentThread isInterrupted))
         (let [ task (-> consumer zmq/receive-str) ]
