@@ -4,7 +4,7 @@
 
 (defn -main [ ]
   (let [ context (zmq/context 1)
-         poller (zmq/poller context 2) ]
+         poller (-> context (zmq/poller 2)) ]
     (with-open [ frontend (-> context (zmq/socket :router) ; fair queueing
                             (zmq/bind "tcp://*:5559")) ; async server
                  backend (-> context (zmq/socket :dealer) ; distributed load balancing
