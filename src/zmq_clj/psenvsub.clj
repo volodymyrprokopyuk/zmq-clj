@@ -9,7 +9,5 @@
                               (zmq/connect "tcp://127.0.0.1:5563")
                               (zmq/subscribe "B")) ]
       (dotimes [ _ 5 ]
-        ;(-> subscriber zmq/receive-str) ; message key
-        ;(-> subscriber zmq/receive-str println))))) ; message data
         (let [ [ key data ] (-> subscriber (utils/receive-all-str)) ]
           (println key data))))))
