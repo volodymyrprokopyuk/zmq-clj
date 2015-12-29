@@ -57,7 +57,7 @@ $ ./bin/run.sh bin/hwclient.jar
 ## Examples
 1. **hwserver hwclient** (REQ, REP - sync client/server service)
 1. **wuserver wuclient** (PUB, SUB - async publisher/subscriber broadcasting
-   with no distribution)
+   with no distribution, subscription by prefix)
 1. **taskvent taskwork tasksink** (PUSH, PULL or PIPELINE - map/reduce with PUSH
    distributed load balancing and PULL fair queueing)
 1. **wuserver/taskvent msreader** (DONTWAIT - read from multiple sockets at the
@@ -70,18 +70,19 @@ $ ./bin/run.sh bin/hwclient.jar
 1. **rrclient msgqueue rrworker** (REQ, ROUTER, DEALER, REP - async
    client/server, PROXY - connect frontend with backend via POLL)
 1. **wuserver wuproxy wuclient** (PUB, XSUB, XPUB, SUB - async
-   publisher/subscriber broadcasting with PROXY via POLL)
+   publisher/subscriber broadcasting with PROXY via POLL, subscription by
+   prefix)
 1. **taskvent taskwork2 tasksink2** (PUSH, PULL or PIPELINE - map/reduce with
    PUSH distributed load balancing and PULL fair queueing, shutdown workers with
    PUB, SUB)
-1. **mtserver hwclient** (REQ ROUTER DEALER REP - async REQREQ, collapse the
-   broker and workders in a single process (INPROC))
-1. **mtrelay** (INPROC PAIR - exclusive connection between two threads only for
-   coordination, no automatic reconnection)
-1. **syncpub syncsub** (PUBSUB - broadcasting, no distribution, REQREQ for node
-   syncronization)
-1. **psenvpub psenvsub** (PUBSUB envelope with SNDMORE for message key
-   (subscribe) and message data)
+1. **mtserver hwclient** (REQ, ROUTER, DEALER, REP - async client/server, INPROC
+   collapse the broker and workders in a single process with shared context)
+1. **mtrelay** (INPROC PAIR - for exclusive synchronization between two
+   threads, no automatic reconnection)
+1. **syncpub syncsub** (PUB, SUB - async publisher/subscriber broadcasting with
+   no distribution, REQ, REP for node synchronization, subscription by prefix)
+1. **psenvpub psenvsub** (PUB, SUB envelope with SENDMORE for message key
+   (subscribe) and message data, subscription by frame)
 1. **rtreq** (ROUTER broker (round-robin distribution), REQ worker, Least
    Recently Used worker)
 1. **rtdealer** (ROUTER broker (round-robin distribution), DEALER worker, Least
@@ -116,6 +117,8 @@ $ ./bin/run.sh bin/hwclient.jar
     - distributed load balancing (round-robin)
 - **PULL**
     - fair queueing
+- **PAIR**
+    - exclusive connection between two points
 
 ## License
 
