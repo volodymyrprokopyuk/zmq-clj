@@ -87,7 +87,7 @@ $ ./bin/run.sh bin/hwclient.jar
    (/), data)
 1. **rtdealer** (ROUTER broker, DEALER Least Recently Used async workers)
 1. **lbbroker** (REQ, ROUTER, PROXY, ROUTER, REQ - load balancing message
-   broker, async clients, Least Recently Used async workers)
+   broker, async clients, Last Used async workers)
 1. **asyncsrv** (DEALER, ROUTER, DEALER, DEALER - async client/server)
 
 ## Socket types

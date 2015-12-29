@@ -56,7 +56,7 @@
                     (-> poller (zmq/check-poller 1 :pollin)))
               (let [ [ client-id _ request ]
                      (-> frontend utils/receive-all-str)
-                     worker-id (peek @ready-workers) ]
+                     worker-id (peek @ready-workers) ] ; Last Used worker
                 (swap! ready-workers pop)
                 (-> backend (utils/send-all-str
                               worker-id "" client-id "" request))))))))))
