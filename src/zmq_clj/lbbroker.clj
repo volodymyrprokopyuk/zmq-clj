@@ -1,73 +1,62 @@
 (ns zmq-clj.lbbroker
-  (:require [ zeromq.zmq :as zmq ])
+  (:require [ zeromq.zmq :as zmq ]
+    [ zmq-clj.zmq-utils :as utils ])
   (:gen-class))
 
 (defn client [ client-id ]
   (let [ context (zmq/context 1) ]
-    (with-open [ client (doto (zmq/socket context :req)
-                          (zmq/set-identity (-> client-id str .getBytes))
-                          (zmq/connect "tcp://127.0.0.1:5672")) ] ; frontend
-      (dotimes [ i 4 ]
+    (with-open [ client (-> context (zmq/socket :req)
+                          (zmq/set-identity (-> client-id str .getBytes)) ; for ROUTER
+                          (zmq/connect "tcp://127.0.0.1:5672")) ] ; to frontend
+      (dotimes [ _ 4 ]
         (-> client (zmq/send-str (format "Hello %s" client-id)))
         (let [ reply (-> client zmq/receive-str) ]
-          (println (format "Client: %s: %s" client-id, reply)))))))
+          (println (format "Client %s: %s" client-id reply)))))))
 
 (defn worker [ worker-id ]
   (let [ context (zmq/context 1) ]
-    (with-open [ worker (doto (zmq/socket context :req)
-                          (zmq/set-identity (-> worker-id str .getBytes))
-                          (zmq/connect "tcp://127.0.0.1:5673")) ] ; backend
+    (with-open [ worker (-> context (zmq/socket :req)
+                          (zmq/set-identity (-> worker-id str .getBytes)) ; for ROUTER
+                          (zmq/connect "tcp://127.0.0.1:5673")) ] ; to backend
       (-> worker (zmq/send-str (format "Ready %s" worker-id)))
       (while (not (.. Thread currentThread isInterrupted))
-        (let [ client-id (-> worker zmq/receive-str)
-               _ (-> worker zmq/receive-str)
-               request (-> worker zmq/receive-str) ]
+        (let [ [ client-id _ request ] (-> worker utils/receive-all-str) ]
           (println (format "Worker %s: %s" worker-id request))
           (Thread/sleep 1000)
-          (-> worker (zmq/send-str client-id zmq/send-more))
-          (-> worker (zmq/send-str "" zmq/send-more))
-          (-> worker (zmq/send-str (format "Done %s" request))))))))
+          (-> worker (utils/send-all-str
+                       client-id "" (format "Done %s" request))))))))
 
 (defn -main [ ]
   (let [ context (zmq/context 1) ]
-    (with-open [ frontend (doto (zmq/socket context :router)
+    (with-open [ frontend (-> context (zmq/socket :router)
                             (zmq/bind "tcp://*:5672"))
-                 backend (doto (zmq/socket context :router)
+                 backend (-> context (zmq/socket :router)
                            (zmq/bind "tcp://*:5673")) ]
-      (dotimes [ i 2 ]
-        (-> (partial client i) Thread. .start))
-      (dotimes [ i 3 ]
-        (-> (partial worker i) Thread. .start))
+      (dotimes [ client-id 2 ]
+        (-> (partial client client-id) Thread. .start))
+      (dotimes [ worker-id 3 ]
+        (-> (partial worker worker-id) Thread. .start))
       (let [ ready-workers (atom clojure.lang.PersistentQueue/EMPTY) ]
         (while (not (.. Thread currentThread isInterrupted))
           (let [ has-ready-workers? (-> @ready-workers empty? not)
-                 poller (zmq/poller context (if has-ready-workers? 2 1)) ]
-            (zmq/register poller backend :pollin) ; always poll backend
+                 poller (-> context (zmq/poller (if has-ready-workers? 2 1))) ]
+            (-> poller (zmq/register backend :pollin)) ; always poll backend
             (when has-ready-workers? ; poll frontend when has ready workers
-              (zmq/register poller frontend :pollin))
-            (zmq/poll poller -1) ; infinite poll timeout
+              (-> poller (zmq/register frontend :pollin)))
+            (-> poller (zmq/poll -1)) ; infinite poll timeout
             ; backend -> frontend
-            (when (zmq/check-poller poller 0 :pollin)
-              (let [ worker-id (-> backend zmq/receive-str)
-                     _ (-> backend zmq/receive-str)
-                     client-id (-> backend zmq/receive-str) ]
+            (when (-> poller (zmq/check-poller 0 :pollin))
+              (let [ [ worker-id _ client-id _ reply ]
+                     (-> backend utils/receive-all-str) ]
                 (swap! ready-workers conj worker-id)
                 (if-not (re-find #"Ready" client-id)
-                  (let [ _ (-> backend zmq/receive-str)
-                         reply (-> backend zmq/receive-str) ]
-                    (-> frontend (zmq/send-str client-id zmq/send-more))
-                    (-> frontend (zmq/send-str "" zmq/send-more))
-                    (-> frontend (zmq/send-str reply))))))
+                  (-> frontend (utils/send-all-str client-id "" reply)))))
             ; frontend -> backend
             (when (and has-ready-workers?
-                    (zmq/check-poller poller 1 :pollin))
-              (let [ client-id (-> frontend zmq/receive-str)
-                     _ (-> frontend zmq/receive-str)
-                     request (-> frontend zmq/receive-str)
+                    (-> poller (zmq/check-poller 1 :pollin)))
+              (let [ [ client-id _ request ]
+                     (-> frontend utils/receive-all-str)
                      worker-id (peek @ready-workers) ]
                 (swap! ready-workers pop)
-                (-> backend (zmq/send-str worker-id zmq/send-more))
-                (-> backend (zmq/send-str "" zmq/send-more))
-                (-> backend (zmq/send-str client-id zmq/send-more))
-                (-> backend (zmq/send-str "" zmq/send-more))
-                (-> backend (zmq/send-str request))))))))))
+                (-> backend (utils/send-all-str
+                              worker-id "" client-id "" request))))))))))

@@ -83,36 +83,42 @@ $ ./bin/run.sh bin/hwclient.jar
    no distribution, REQ, REP for node synchronization, subscription by prefix)
 1. **psenvpub psenvsub** (PUB, SUB envelope with SENDMORE for message key
    (subscribe) and message data, subscription by frame)
-1. **rtreq** (ROUTER broker (round-robin distribution), REQ worker, Least
-   Recently Used worker)
-1. **rtdealer** (ROUTER broker (round-robin distribution), DEALER worker, Least
-   Recently Used worker)
-1. **lbbroker** (REQ ROUTER PROXY ROUTER REQ - load balancing message broker,
-   Least Recently Used worker)
-1. **asyncsrv** (DEALER ROUTER DEALER DEALER - async client/server)
+1. **rtreq** (ROUTER broker, REQ Least Recently Used sync workers, emulate REQ
+   (/), data)
+1. **rtdealer** (ROUTER broker, DEALER Least Recently Used async workers)
+1. **lbbroker** (REQ, ROUTER, PROXY, ROUTER, REQ - load balancing message
+   broker, async clients, Least Recently Used async workers)
+1. **asyncsrv** (DEALER, ROUTER, DEALER, DEALER - async client/server)
 
 ## Socket types
 - **REQ**
-    - (/), data
+    - wraps (/), data
+    - strips (/) only
     - sync
     - distributed load balancing
     - initiates commutication
 - **REP**
-    - strip/wrap
+    - strips including (/) and saves the envelope
+    - wraps with previously saved envelope
     - sync
     - fair queueing
     - waits for requests
 - **DEALER**
     - pass through
+    - async (like PUSH and PULL combined)
+    - fair queueing
+    - distributed load balancing
+    - like async REQ
+    - async client that talks to multiple REP servers
+    - when talking to REP server must emulate REQ (/), data
+- **ROUTER**
+    - wraps identity, (/), data
+    - strips identity only (knows nothing about (/))
     - async
     - fair queueing
     - distributed load balancing
-    - like async REQ (async client)
-- **ROUTER**
-    - identity, (/), data
-    - async
-    - fair queueing
-    - like async REP (async server)
+    - like async REP
+    - async server that talks to multips REQ clients
 - **PUSH**
     - distributed load balancing (round-robin)
 - **PULL**
