@@ -86,15 +86,17 @@ $ ./bin/run.sh bin/hwclient.jar
 1. **rtreq** (ROUTER broker, REQ Least Recently Used sync workers, emulate REQ
    (/), data)
 1. **rtdealer** (ROUTER broker, DEALER Least Recently Used async workers)
-1. **lbbroker** (REQ, ROUTER, PROXY, ROUTER, REQ - load balancing message
+1. **lbbroker** (REQ, ROUTER, POLL, ROUTER, REQ - load balancing message
    broker, async clients, Last Used async workers)
 1. **asyncsrv** (DEALER, ROUTER, PROXY, DEALER, DEALER - async client/server,
    one worker can handle one request at a time, one client can talk to multiple
    workers at once)
 1. **peering** (TODO - inter-broker routing)
-1. **lpclient hwserver** (REQ, REP - sync client/server with POLL on REQ and
-   retry after timeout or abandon, set of clients talking to a single server,
-   client-side reliability)
+1. **lpclient hwserver** (REQ, REP - multiple clients with retry talking to a
+   single server, client periodically POLLs on REQ and retry after timeout for
+   several attempts then abandons, client-side reliability)
+1. **lpclient spqueue(lbbroker) spworker** (REQ, ROUTER, POLL, ROUTER, REQ -
+   multiple clients with retry talking to multiple workers via broker)
 
 ## Socket types
 - **REQ**

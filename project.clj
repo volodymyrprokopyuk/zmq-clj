@@ -62,4 +62,8 @@
               :asyncsrv { :main zmq-clj.asyncsrv
                           :uberjar-name "asyncsrv.jar" }
               :lpclient { :main zmq-clj.lpclient
-                          :uberjar-name "lpclient.jar" } })
+                          :uberjar-name "lpclient.jar" }
+              :spqueue { :main zmq-clj.spqueue
+                          :uberjar-name "spqueue.jar" }
+              :spworker { :main zmq-clj.spworker
+                          :uberjar-name "spworker.jar" } })

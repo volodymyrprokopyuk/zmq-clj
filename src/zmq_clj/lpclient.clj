@@ -4,7 +4,8 @@
 
 (defn request [ context ]
   (with-open [ client (-> context (zmq/socket :req)
-              (zmq/connect "tcp://127.0.0.1:5555")) ]
+                        (zmq/set-identity (-> 1e5 rand-int str .getBytes)) ; for ROUTER
+                        (zmq/connect "tcp://127.0.0.1:5555")) ]
     (-> client (zmq/send-str "Hello"))
     (let [ poller (-> context (zmq/poller 1))
            client-index (-> poller (zmq/register client :pollin)) ]
