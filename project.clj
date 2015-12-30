@@ -61,4 +61,5 @@
                           :uberjar-name "lbbroker.jar" }
               :asyncsrv { :main zmq-clj.asyncsrv
                           :uberjar-name "asyncsrv.jar" }
-              })
+              :lpclient { :main zmq-clj.lpclient
+                          :uberjar-name "lpclient.jar" } })

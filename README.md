@@ -92,6 +92,9 @@ $ ./bin/run.sh bin/hwclient.jar
    one worker can handle one request at a time, one client can talk to multiple
    workers at once)
 1. **peering** (TODO - inter-broker routing)
+1. **lpclient hwserver** (REQ, REP - sync client/server with POLL on REQ and
+   retry after timeout or abandon, set of clients talking to a single server,
+   client-side reliability)
 
 ## Socket types
 - **REQ**
