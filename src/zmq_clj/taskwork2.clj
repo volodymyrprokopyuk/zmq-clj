@@ -17,11 +17,13 @@
              subscriber-index (-> poller (zmq/register subscriber :pollin)) ]
         (while @continue
           (-> poller zmq/poll)
+          ; worker consumer
           (when (-> poller (zmq/check-poller consumer-index :pollin))
             (let [ task (-> consumer zmq/receive-str) ]
               (println task)
               (Thread/sleep 1000)
               (-> sender (zmq/send-str (format "Done %s" task)))))
+          ; shutdown subscriber
           (when (-> poller (zmq/check-poller subscriber-index :pollin))
             (-> subscriber zmq/receive-str println)
             (reset! continue false))))))) ; shutdown worker

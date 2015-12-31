@@ -60,23 +60,24 @@ $ ./bin/run.sh bin/hwclient.jar
    with no distribution, subscription by prefix)
 1. **taskvent taskwork tasksink** (PUSH, PULL or PIPELINE - map/reduce with PUSH
    distributed load balancing and PULL fair queueing)
-1. **wuserver/taskvent msreader** (DONTWAIT - read from multiple sockets at the
-   same time)
+1. **wuserver/taskvent msreader** (DONTWAIT with loop/recur - read from multiple
+   sockets at the same time)
 1. **wuserver/taskvent mspoller** (POLL - sockets multiplexing, read from
    multiple sockets at the same time)
-1. **rrclient rrbroker rrworker** (REQ, ROUTER, DEALER, REP - async
+1. **rrclient rrbroker rrworker** (REQ, ROUTER, POLL, DEALER, REP - async
    client/server, ROUTER fair queueing, POLL sockets multiplexing, DEALER
    distributed load balancing, SENDMORE multipart messages)
-1. **rrclient msgqueue rrworker** (REQ, ROUTER, DEALER, REP - async
+1. **rrclient msgqueue rrworker** (REQ, ROUTER, PROXY DEALER, REP - async
    client/server, PROXY - connect frontend with backend via POLL)
-1. **wuserver wuproxy wuclient** (PUB, XSUB, XPUB, SUB - async
+1. **wuserver wuproxy wuclient** (PUB, XSUB, PROXY, XPUB, SUB - async
    publisher/subscriber broadcasting with PROXY via POLL, subscription by
    prefix)
 1. **taskvent taskwork2 tasksink2** (PUSH, PULL or PIPELINE - map/reduce with
    PUSH distributed load balancing and PULL fair queueing, shutdown workers with
-   PUB, SUB)
-1. **mtserver hwclient** (REQ, ROUTER, DEALER, REP - async client/server, INPROC
-   collapse the broker and workders in a single process with shared context)
+   PUB, SUB and POLL)
+1. **mtserver hwclient** (REQ, ROUTER, PROXY, DEALER, REP - async client/server,
+   INPROC collapse the broker and workders in a single process with shared
+   context)
 1. **mtrelay** (INPROC PAIR - for exclusive synchronization between two
    threads, no automatic reconnection)
 1. **syncpub syncsub** (PUB, SUB - async publisher/subscriber broadcasting with
@@ -97,6 +98,9 @@ $ ./bin/run.sh bin/hwclient.jar
    several attempts then abandons, client-side reliability)
 1. **lpclient spqueue(lbbroker) spworker** (REQ, ROUTER, POLL, ROUTER, REQ -
    multiple clients with retry talking to multiple workers via broker)
+1. **lpclient ppqueue ppworker** (TODO REQ, ROUTER, ROUTER, DEALER - multiple
+   clients with retry, broker with heartbeat -> workers, multipel workers with
+   heartbeat -> broker)
 
 ## Socket types
 - **REQ**
@@ -104,16 +108,19 @@ $ ./bin/run.sh bin/hwclient.jar
     - strips (/) only
     - sync
     - distributed load balancing
-    - initiates commutication
+    - initiates commutication (first send then receive)
+    - lock-step send/receive state machine
 - **REP**
     - strips including (/) and saves the envelope
     - wraps with previously saved envelope
     - sync
     - fair queueing
-    - waits for requests
+    - waits for requests (first receive then send)
+    - lock-step receive/send state machine
 - **DEALER**
     - pass through
-    - async (like PUSH and PULL combined)
+    - async (like PUSH and PULL combined, send and receive at any time, but
+      evelope management must be done)
     - fair queueing
     - distributed load balancing
     - like async REQ

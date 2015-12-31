@@ -19,7 +19,7 @@
       (loop [ attempts 0 ]
         (if-let [ reply (request context) ]
           (println reply)
-          (if (< attempts 3)
+          (if (< attempts 3) ; max attempts
             (do
               (println "Request timeout. Retrying...")
               (recur (inc attempts)))

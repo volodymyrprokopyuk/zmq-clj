@@ -13,12 +13,14 @@
              backend-index (-> poller (zmq/register backend :pollin)) ]
         (while (not (.. Thread currentThread isInterrupted))
           (-> poller zmq/poll)
+          ; frontend -> backend
           (when (-> poller (zmq/check-poller frontend-index :pollin))
             (loop [ part (-> frontend zmq/receive) ]
               (let [ more? (-> frontend zmq/receive-more?) ]
                 (-> backend (zmq/send part (if more? zmq/send-more 0)))
                 (when more?
                   (recur (-> frontend zmq/receive))))))
+          ; backend -> frontend
           (when (-> poller (zmq/check-poller backend-index :pollin))
             (loop [ part (-> backend zmq/receive) ]
               (let [ more? (-> backend zmq/receive-more?) ]
