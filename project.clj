@@ -66,4 +66,6 @@
               :spqueue { :main zmq-clj.spqueue
                           :uberjar-name "spqueue.jar" }
               :spworker { :main zmq-clj.spworker
-                          :uberjar-name "spworker.jar" } })
+                          :uberjar-name "spworker.jar" }
+              :espresso { :main zmq-clj.espresso
+                          :uberjar-name "espresso.jar" } })

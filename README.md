@@ -101,6 +101,9 @@ $ ./bin/run.sh bin/hwclient.jar
 1. **lpclient ppqueue ppworker** (TODO REQ, ROUTER, ROUTER, DEALER - multiple
    clients with retry, broker with heartbeat -> workers, multipel workers with
    heartbeat -> broker)
+1. **espresso** (PUB, XSUB, PROXY, XPUB, SUB - listener traces
+   publisher/subscriber communication via PROXY CAPTURE PAIR to which all
+   messages will be sent)
 
 ## Socket types
 - **REQ**
@@ -134,8 +137,14 @@ $ ./bin/run.sh bin/hwclient.jar
     - distributed load balancing
     - like async REP
     - async server that talks to multips REQ clients
+- **PUB**
+    - no distribution, sends to all subscribers
+    - one direction PUB -> SUB
+- **SUB**
+    - xxxx
 - **PUSH**
     - distributed load balancing (round-robin)
+    - one direction PUSH -> PULL
 - **PULL**
     - fair queueing
 - **PAIR**

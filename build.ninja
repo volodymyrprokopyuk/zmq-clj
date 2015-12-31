@@ -71,6 +71,9 @@ build bin/spqueue.jar: uberjar | src/zmq_clj/spqueue.clj
 build bin/spworker.jar: uberjar | src/zmq_clj/spworker.clj
   profile = spworker
 
+build bin/espresso.jar: uberjar | src/zmq_clj/espresso.clj
+  profile = espresso
+
 build all: phony $
   bin/hwserver.jar bin/hwclient.jar bin/mtserver.jar $
   bin/wuserver.jar bin/wuclient.jar bin/wuproxy.jar $
@@ -83,7 +86,8 @@ build all: phony $
   bin/psenvpub.jar bin/psenvsub.jar $
   bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar $
   bin/asyncsrv.jar $
-  bin/lpclient.jar bin/spqueue.jar bin/spworker.jar
+  bin/lpclient.jar bin/spqueue.jar bin/spworker.jar $
+  bin/espresso.jar
 
 rule clean
   command = rm -f $
@@ -98,7 +102,8 @@ rule clean
     bin/psenvpub.jar bin/psenvsub.jar $
     bin/rtreq.jar bin/rtdealer.jar bin/lbbroker.jar $
     bin/asyncsrv.jar $
-    bin/lpclient.jar bin/spqueue.jar bin/spworker.jar
+    bin/lpclient.jar bin/spqueue.jar bin/spworker.jar $
+    bin/espresso.jar
   description = [ clean ]
 
 build clean: clean
