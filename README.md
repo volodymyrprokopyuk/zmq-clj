@@ -104,6 +104,8 @@ $ ./bin/run.sh bin/hwclient.jar
 1. **espresso** (PUB, XSUB, PROXY, XPUB, SUB - listener traces
    publisher/subscriber communication via PROXY CAPTURE PAIR to which all
    messages will be sent)
+1. **pathopub lvcache pathosub** (TODO PUB, SUB, POLL, XPUB, SUB - Last Value
+   Caching)
 
 ## Socket types
 - **REQ**
